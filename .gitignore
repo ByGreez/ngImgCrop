@@ -24,9 +24,13 @@ $RECYCLE.BIN/
 .DS_Store
 .AppleDouble
 .LSOverride
+.tmp
 
 # Icon must ends with two \r.
-Icon
+Icon
+
+# IDE
+.idea
 
 # Thumbnails
 ._*
@@ -38,6 +42,7 @@ Icon
 
 # SASS Cache
 .sass_cache/
+.sass-cache/
 
 # Installed Bower/Node modules
 bower_components/
