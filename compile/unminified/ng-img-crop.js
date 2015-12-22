@@ -1,11 +1,11 @@
 /*!
- * ngImgCropExtendedDrmc v0.4.7
- * https://github.com/drmikecrowe/ngImgCropExtended/
+ * ngImgCropExtended v0.4.7
+ * https://github.com/CrackerakiUA/ngImgCropExtended/
  *
  * Copyright (c) 2015 undefined
  * License: MIT
  *
- * Generated at Tuesday, December 15th, 2015, 3:39:53 PM
+ * Generated at Tuesday, December 22nd, 2015, 4:35:37 PM
  */
 (function() {
 var crop = angular.module('ngImgCrop', []);
@@ -2150,8 +2150,19 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
             }
         };
 
+        var resultByCenterArea = function (aw, ah, iw, ih) {
+          var dx = 0, dy = 0;
+          if (aw < iw) {
+            dx = Math.round((iw / 2) - (aw / 2));
+          }
+          if (ah < ih) {
+            dy = Math.round((ih / 2) - (ah / 2));
+          }
+          return {dx:dx, dy:dy};
+        };
+
         var renderImageToDataURL = function(getResultImageSize){
-            var temp_ctx, temp_canvas,
+            var temp_ctx, temp_canvas, result_center
                 ris = getResultImageSize,
                 center = theArea.getCenterPoint(),
                 retObj = {
@@ -2187,14 +2198,14 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
                         resultHeight = ris.h;
                         resultWidth = resultHeight * aspectRatio;
                     }
-
+                    result_center = resultByCenterArea(resultWidth, resultHeight, ris.w, ris.h);
                     temp_ctx.drawImage(image,
                         x,
                         y,
                         areaWidth,
                         areaHeight,
-                        0,
-                        0,
+                        result_center.dx,
+                        result_center.dy,
                         Math.round(resultWidth),
                         Math.round(resultHeight));
                 }
@@ -2225,7 +2236,7 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
         };
 
         this.getResultImageDataBlob = function() {
-            var temp_ctx, temp_canvas, _p,
+            var temp_ctx, temp_canvas, _p, result_center,
                 center = theArea.getCenterPoint(),
                 ris = this.getResultImageSize(),
                 _p = $q.defer();
@@ -2258,14 +2269,14 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
                         resultHeight = ris.h;
                         resultWidth = resultHeight * aspectRatio;
                     }
-
+                    result_center = resultByCenterArea(resultWidth, resultHeight, ris.w, ris.h);
                     temp_ctx.drawImage(image,
                         x,
                         y,
                         areaWidth,
                         areaHeight,
-                        0,
-                        0,
+                        result_center.dx,
+                        result_center.dy,
                         Math.round(resultWidth),
                         Math.round(resultHeight));
                 }
