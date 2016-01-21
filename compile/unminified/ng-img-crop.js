@@ -1,11 +1,11 @@
 /*!
- * ngImgCropExtended v0.4.7
+ * ngImgCropExtended v0.4.7b
  * https://github.com/CrackerakiUA/ngImgCropExtended/
  *
- * Copyright (c) 2015 undefined
+ * Copyright (c) 2016 undefined
  * License: MIT
  *
- * Generated at Tuesday, December 22nd, 2015, 4:35:37 PM
+ * Generated at Thursday, January 21st, 2016, 3:02:59 PM
  */
 (function() {
 var crop = angular.module('ngImgCrop', []);
@@ -2297,7 +2297,9 @@ crop.factory('cropHost', ['$document', '$q', 'cropAreaCircle', 'cropAreaSquare',
             events.trigger('image-updated');
             if (!!imageSource) {
                 var newImage = new Image();
-                newImage.crossOrigin = 'anonymous';
+                if(imageSource.substring(0,4).toLowerCase()==='http') {
+                    newImage.crossOrigin = 'anonymous';
+                }
                 newImage.onload = function() {
                     events.trigger('load-done');
 
